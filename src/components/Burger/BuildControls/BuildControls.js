@@ -18,6 +18,7 @@ export const buildControls = (props) => {
                   label={controlItem.label}
                   add={ () => props.addHandler(controlItem.type) }
                   remove={ () => props.removeHandler(controlItem.type) }
+                  disabled = {props.disabledInfo[controlItem.type]}
               />
           })
           }

@@ -60,12 +60,22 @@ class BurgerBuilder extends Component {
     }
 
     render() {
+        // disable button checker
+        const disabledInfo = {
+            ...this.state.ingredients
+        }
+        // check if each value less or equal to zero and sign 'true' or 'false' to a key
+        for (let key in disabledInfo) {
+            disabledInfo[key] = disabledInfo[key] <= 0;
+        }
+
         return (
             <React.Fragment>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls
                     addHandler={this.addIngredientHandler}
                     removeHandler={this.removeIngredientHandler}
+                    disabledInfo={disabledInfo}
                 />
             </React.Fragment>
         )
