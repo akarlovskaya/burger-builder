@@ -12,13 +12,31 @@ const INGREDIENTS_PRICES = {
 class BurgerBuilder extends Component {
     state = {
         ingredients: {
-            salad: 1,
-            bacon: 1,
-            cheese: 2,
-            meat: 2
+            salad: 0,
+            bacon: 0,
+            cheese: 0,
+            meat: 0
         },
-        basePrice: 4
+        basePrice: 4,
+        purchasable: false
     }
+
+
+
+    updatePurchaseState = (ingredients) => {
+        //create new array of keys and calculate sum of all values
+        const sum = Object.keys(ingredients)
+            .map( (key, i) => {
+                return ingredients[key];
+            })
+            .reduce( (sum, el) => {
+                return sum + el;
+            }, 0);
+
+            this.setState({
+                purchasable: sum > 0
+            });
+    };
 
     addIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
@@ -36,7 +54,8 @@ class BurgerBuilder extends Component {
             ingredients: updatedIngredients,
             basePrice: updatedPrice
         });
-        console.log(this.state);
+        // pass updatedIngredients array to updatePurchaseState method
+        this.updatePurchaseState(updatedIngredients);
     }
 
     removeIngredientHandler = (type) => {
@@ -57,10 +76,11 @@ class BurgerBuilder extends Component {
             ingredients: updatedIngredients,
             basePrice: updatedPrice
         });
+        this.updatePurchaseState(updatedIngredients);
     }
 
     render() {
-        // disable button checker
+        // disabled button checker
         const disabledInfo = {
             ...this.state.ingredients
         }
@@ -76,6 +96,8 @@ class BurgerBuilder extends Component {
                     addHandler={this.addIngredientHandler}
                     removeHandler={this.removeIngredientHandler}
                     disabledInfo={disabledInfo}
+                    price={this.state.basePrice}
+                    purchasable={this.state.purchasable}
                 />
             </React.Fragment>
         )
