@@ -7,8 +7,8 @@ import Button from '../UI/Button/Button';
      const ingredientsSummary = Object.keys(props.ingredients)
         .map( ingredientKey => {
             return <li key={ingredientKey}>{ingredientKey.toUpperCase()}: {props.ingredients[ingredientKey]}</li>
-            // console.log(ingredientKey);
         } );
+// calculate
   return (
       <React.Fragment>
           <h3>Your Order</h3>
@@ -16,6 +16,7 @@ import Button from '../UI/Button/Button';
           <ul>
               {ingredientsSummary}
           </ul>
+          <p>Order Summary: <strong>{props.price.toFixed(2)}<small>$</small></strong></p>
           <p>Continue to checkout?</p>
           <Button btnType="Danger"
                   clicked={props.purchaseCancelled}>CANCEL</Button>

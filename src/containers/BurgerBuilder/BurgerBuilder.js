@@ -24,8 +24,6 @@ class BurgerBuilder extends Component {
         purchasing: false
     }
 
-
-
     updatePurchaseState = (ingredients) => {
         //create new array of keys and calculate sum of all values
         const sum = Object.keys(ingredients)
@@ -111,6 +109,7 @@ class BurgerBuilder extends Component {
                         ingredients={this.state.ingredients}
                         purchaseCancelled={this.purchaseCancelHandler}
                         purchaseContinued={this.purchaseContinueHandler}
+                        price={this.state.basePrice}
                     />
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
